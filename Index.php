@@ -2,22 +2,19 @@
 // Inclua o arquivo do banco de dados
 include_once './bancoDeDadosClientes.php';
 
-// Verifique se o formulário foi enviado
 if (isset($_POST['cadUsuario'])) {
     $mostrarInputs = true;
 } else {
     $mostrarInputs = false;
 }
 
-// Verifica Botão de protocolo
 if (isset($_POST['irProtocolo'])) {
     header('Location: protocolo.php');
     exit;
 }
 
-// Salve as informações no banco de dados se o botão "Cadastrar pessoa" for pressionado
 if (isset($_POST['cadUsuarioSIM'])) {
-    // Obtenha os valores do formulário
+    
     $nome = $_POST['nome'];
     $dataDeNascimento = $_POST['dataDeNascimento'];
     $cpf = $_POST['cpf'];
@@ -33,8 +30,9 @@ if (isset($_POST['cadUsuarioSIM'])) {
     // Verifique se todos os campos obrigatórios estão preenchidos
     if (empty($nome) || empty($dataDeNascimento) || empty($cpf) || empty($sexo) || empty($email) || empty($senha)) {
         echo "Complete todos os campos";
+        $mostrarInputs = true;
     } else {
-        // Estabeleça a conexão com o banco de dados
+        
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -42,12 +40,12 @@ if (isset($_POST['cadUsuarioSIM'])) {
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-        // Verifique se a conexão foi estabelecida corretamente
+        // Verifica se conexão estabelecida
         if (!$conn) {
             die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
         }
 
-        // Escape os valores para evitar injeção de SQL
+        // injeção de SQL
         $nome = mysqli_real_escape_string($conn, $nome);
         $dataDeNascimento = mysqli_real_escape_string($conn, $dataDeNascimento);
         $cpf = mysqli_real_escape_string($conn, $cpf);
@@ -66,22 +64,20 @@ if (isset($_POST['cadUsuarioSIM'])) {
 
         if (mysqli_num_rows($resultVerificacao) > 0) {
             echo "Senha ou CPF já cadastrado";
+            $mostrarInputs = true;
         } else {
-            // Exemplo de código para salvar os dados em uma tabela "usuarios"
             $sql = "INSERT INTO usuarios (nome, data_nascimento, cpf, sexo, cidade, bairro, rua, numero, complemento, email, senha) VALUES ('$nome', '$dataDeNascimento', '$cpf', '$sexo', '$cidade', '$bairro', '$rua', '$numero', '$complemento', '$email', '$senha')";
 
-            // Execute a query usando a função mysqli_query
             if (mysqli_query($conn, $sql)) {
-                // Redirecione para a página de sucesso
                 header('Location: protocolo.php');
                 exit;
             } else {
-                // Trate qualquer erro durante a execução da consulta
+                
                 echo "Erro ao executar a consulta: " . mysqli_error($conn);
             }
         }
 
-        // Feche a conexão com o banco de dados
+        
         mysqli_close($conn);
     }
 }
