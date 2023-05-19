@@ -1,7 +1,7 @@
 # Projeto para Prefeitura Muncipal de São Leopoldo
 
 ## Atenção!
-*Projeto desenvolvido inteiramente em PHP e Mysql com framework em CSS.
+*Projeto desenvolvido inteiramente em PHP e Mysql com framework em CSS.<br>
 *Para desenvolvimento web foi utilizado HTML 5.
 *Tecnologia usada para linkar PHP e MySQL: WAMPSERVER.
 *Banco de dados anexado junto ao projeto.
