@@ -2,13 +2,13 @@
 
 ## Atenção!
 *Projeto desenvolvido inteiramente em PHP e Mysql com framework em CSS.<br>
-*Para desenvolvimento web foi utilizado HTML 5.
-*Tecnologia usada para linkar PHP e MySQL: WAMPSERVER.
-*Banco de dados anexado junto ao projeto.
+*Para desenvolvimento web foi utilizado HTML 5.<br>
+*Tecnologia usada para linkar PHP e MySQL: WAMPSERVER.<br>
+*Banco de dados anexado junto ao projeto.<br>
 
 ## Passo a Passo
-*Baixe o WAMPSERVER para que não haja erro na edição.
-*Página inicial se chama "Index.php".
-*Após o cadastro do cliente, você será redirecionado para página de cadastro protocolo.
-*Todas informações são salvas em um banco de dados "usuarios", respeitando as tarefas pedidas.
+*Baixe o WAMPSERVER para que não haja erro na edição.<br>
+*Página inicial se chama "Index.php".<br>
+*Após o cadastro do cliente, você será redirecionado para página de cadastro protocolo.<br>
+*Todas informações são salvas em um banco de dados "usuarios", respeitando as tarefas pedidas.<br>
 
