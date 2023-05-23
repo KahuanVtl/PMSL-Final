@@ -1,5 +1,5 @@
 <?php
-// Inclua o arquivo do banco de dados
+
 include_once './bancoDeDadosClientes.php';
 
 if (isset($_POST['cadUsuario'])) {
@@ -27,7 +27,7 @@ if (isset($_POST['cadUsuarioSIM'])) {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    // Verifique se todos os campos obrigatórios estão preenchidos
+    
     if (empty($nome) || empty($dataDeNascimento) || empty($cpf) || empty($sexo) || empty($email) || empty($senha)) {
         echo "Complete todos os campos";
         $mostrarInputs = true;
@@ -40,12 +40,12 @@ if (isset($_POST['cadUsuarioSIM'])) {
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-        // Verifica se conexão estabelecida
+       
         if (!$conn) {
             die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
         }
 
-        // injeção de SQL
+        
         $nome = mysqli_real_escape_string($conn, $nome);
         $dataDeNascimento = mysqli_real_escape_string($conn, $dataDeNascimento);
         $cpf = mysqli_real_escape_string($conn, $cpf);
@@ -58,7 +58,7 @@ if (isset($_POST['cadUsuarioSIM'])) {
         $email = mysqli_real_escape_string($conn, $email);
         $senha = mysqli_real_escape_string($conn, $senha);
 
-        // Verifique se a senha ou CPF já estão cadastrados
+        
         $sqlVerificacao = "SELECT * FROM usuarios WHERE senha = '$senha' OR cpf = '$cpf'";
         $resultVerificacao = mysqli_query($conn, $sqlVerificacao);
 
@@ -87,11 +87,8 @@ if (isset($_POST['cadUsuarioSIM'])) {
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de login</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style1.css">
 </head>
 
 <body>
@@ -101,16 +98,16 @@ if (isset($_POST['cadUsuarioSIM'])) {
         <?php if (!$mostrarInputs) { ?>
             <h2>Bem vindo ao cadastro de pessoa</h2>
             <label>Clique abaixo caso queira cadastrar uma pessoa:</label><br>
-            <label>Após o cadastro, você será redirecionado para tela de protocolos</label><br>
+            <label>Após o cadastro, você será redirecionado para tela de protocolos</label>
 
-            <input type="submit" value="Cadastrar pessoa" name="cadUsuario"><br>
+            <input type="submit" value="Cadastrar pessoa" name="cadUsuario"><br><br>
 
-            <label>Caso já tenha um cadastro, clique no botão abaixo e abra seu ticket!</label><br>
+            <label>Caso já tenha um cadastro, clique no botão abaixo e abra seu ticket!</label>
 
             <input type="submit" value="Criar Protocolos" name="irProtocolo">
 
         <?php } else { ?>
-            <p>Todas as caixas de textos que possuirem "<label style='color: red '>*</label>" são informações necessárias</p>
+            <p>Todas as caixas de textos que possuirem * são informações necessárias</p>
 
             <label><label style='color: red '>*</label>Nome:</label><br>
             <input type="text" name="nome" value="<?php echo isset($nome) ? $nome : ''; ?>"><br>

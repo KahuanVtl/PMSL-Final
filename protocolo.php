@@ -33,6 +33,11 @@ if (isset($_POST['submitFormulario'])) {
     $data = $_POST['dataEntrada'];
     $prazo = $_POST['prazo'];
 
+    
+    $data = date('Y-m-d', strtotime(str_replace('/', '-', $data)));
+
+    $prazo = date('Y-m-d', strtotime(str_replace('/', '-', $prazo)));
+
     $inserirProtocolo = "INSERT INTO protocolo (NUMERO, DESCRICAO, DATA, PRAZO, NOME_DEMANDANTE) VALUES (:numero, :descricao, :data, :prazo, :nomeDemandante)";
 
     $stmt = $conn->prepare($inserirProtocolo);
@@ -88,63 +93,73 @@ $conn = null;
 
 <head>
     <h1 style="font-weight: bold;">Prefeitura Municipal de São Leopoldo</h1>
+    <link rel="stylesheet" type="text/css" href="style2.css">
 </head>
 
 <body>
-    
-    <?php if ($mostrarFormulario && !$protocoloCadastrado) { ?>
-        <form method="post">
-            <h2>Bem Vindo ao Cadastro de Protocolos</h2>
-            <label>Clique abaixo para fazer login:</label><br><br>
-            <input type="text" placeholder="E-mail" name="email"><br><br>
-            <input type="password" placeholder="Senha" name="senha"><br><br>
-            <input type="submit" name="testaLogin" value="Confirmar">
-        </form>
-    <?php } elseif ($mostrarFormulario && $protocoloCadastrado) { ?>
-        <h2>Protocolo cadastrado com sucesso! Número do protocolo: #<?php echo $ultimoId; ?></h2>
-        <form method="post">
-            <input type="submit" name="submitOutroFormulario" value="Cadastrar outro ticket">
-        </form>
-    <?php } else { ?>
-        <form method="post">
-            <h2>Siga o Formulário abaixo:</h2>
-            <select name="usuario">
-                <?php foreach ($nomesUsuarios as $nome) { ?>
-                    <option value="<?php echo $nome; ?>"><?php echo $nome; ?></option>
-                <?php } ?>
-            </select><br><br>
-            <input type="text" placeholder="Telefone" name="numero" required><br><br>
-            <input type="text" placeholder="Assunto" name="descricao" required><br><br>
-            <input type="text" placeholder="Data de início" name="dataEntrada" required>
-            <input type="text" placeholder="Prazo" name="prazo" required><br><br>
-            <input type="submit" name="submitFormulario" value="Enviar" required>
-        </form>
 
-        <h2>Protocolos Cadastrados</h2>
+    <div class="form-container">
 
-        <table>
-            <tr>
-                <th>Número</th>
-                <th>Descrição</th>
-                <th>Data</th>
-                <th>Prazo</th>
-                <th>Nome Demandante</th>
-                <th>Ações</th>
-            </tr>
-            <?php foreach ($protocolos as $protocolo) { ?>
+        <?php if ($mostrarFormulario && !$protocoloCadastrado) { ?>
+            <form method="post">
+                <h2>Bem Vindo ao Cadastro de Protocolos</h2>
+                <label>Clique abaixo para fazer login:</label><br><br>
+                <input type="text" placeholder="E-mail" name="email"><br><br>
+                <input type="password" placeholder="Senha" name="senha"><br><br>
+                <input type="submit" name="testaLogin" value="Confirmar">
+            </form>
+
+    </div>
+
+        <?php } elseif ($mostrarFormulario && $protocoloCadastrado) { ?>
+            <h2>Protocolo cadastrado com sucesso! Número do protocolo:</h2>
+            <h2> #<?php echo $ultimoId; ?></h2>
+            <form method="post">
+                <input type="submit" name="submitOutroFormulario" value="Cadastrar outro ticket">
+            </form>
+        <?php } else { ?>
+            <form method="post">
+                
+                <div class="form-container">
+
+                    <h2>Siga o Formulário abaixo:</h2>
+                
+                    <select name="usuario">
+                        <?php foreach ($nomesUsuarios as $nome) { ?>
+                            <option value="<?php echo $nome; ?>"><?php echo $nome; ?></option>
+                        <?php } ?>
+                    </select><br><br>
+
+                    <input type="text" placeholder="Telefone" name="numero" required><br><br>
+                    <input type="text" placeholder="Assunto" name="descricao" required><br><br>
+                    <input type="text" placeholder="Data de início (dia/mês/ano)" name="dataEntrada" required>
+                    <input type="text" placeholder="Prazo" name="prazo" required><br><br>
+                    <input type="submit" name="submitFormulario" value="Enviar" required>
+                </div>
+
+            </form>
+
+            <h2>Protocolos Cadastrados</h2>
+
+            <table>
                 <tr>
-                    <td><?php echo $protocolo['NUMERO']; ?></td>
-                    <td><?php echo $protocolo['DESCRICAO']; ?></td>
-                    <td><?php echo $protocolo['DATA']; ?></td>
-                    <td><?php echo $protocolo['PRAZO']; ?></td>
-                    <td><?php echo $protocolo['NOME_DEMANDANTE']; ?></td>
-                    <td>
-                        
-                        
-                    </td>
+                    <th>Número</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Prazo</th>
+                    <th>Nome Demandante</th>
                 </tr>
-            <?php } ?>
-        </table>
+                <?php foreach ($protocolos as $protocolo) { ?>
+                    <tr>
+                        <td><?php echo $protocolo['NUMERO']; ?></td>
+                        <td><?php echo $protocolo['DESCRICAO']; ?></td>
+                        <td><?php echo $protocolo['DATA']; ?></td>
+                        <td><?php echo $protocolo['PRAZO']; ?></td>
+                        <td><?php echo $protocolo['NOME_DEMANDANTE']; ?></td>
+                    
+                    </tr>
+                <?php } ?>
+            </table>
     <?php } ?>
 
 </body>
