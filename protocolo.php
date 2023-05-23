@@ -105,7 +105,7 @@ $conn = null;
                 <h2>Bem Vindo ao Cadastro de Protocolos</h2>
                 <label>Clique abaixo para fazer login:</label><br><br>
                 <input type="text" placeholder="E-mail" name="email"><br><br>
-                <input type="password" placeholder="Senha" name="senha"><br><br>
+                <input type="password" placeholder="Senha" name="senha"><br><break>
                 <input type="submit" name="testaLogin" value="Confirmar">
             </form>
 

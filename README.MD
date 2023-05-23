@@ -10,4 +10,4 @@
 *Baixe o WAMPSERVER para que não haja erro na edição.<br>
 *Página inicial se chama "Index.php".<br>
 *Após o cadastro do cliente, você será redirecionado para página de cadastro protocolo "protocolo.php".<br>
-*Todas informações são salvas em um banco de dados "usuarios" e "protocolo", respeitando as tarefas pedidas.<br>
+*Todas informações são salvas em um banco de dados "usuarios" e "protocolo", respeitando as tarefas pedidas.<br><br>

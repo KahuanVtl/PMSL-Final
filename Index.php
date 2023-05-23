@@ -100,7 +100,7 @@ if (isset($_POST['cadUsuarioSIM'])) {
             <label>Clique abaixo caso queira cadastrar uma pessoa:</label><br>
             <label>Após o cadastro, você será redirecionado para tela de protocolos</label>
 
-            <input type="submit" value="Cadastrar pessoa" name="cadUsuario"><br><br>
+            <input type="submit" value="Cadastrar pessoa" name="cadUsuario"><br><break>
 
             <label>Caso já tenha um cadastro, clique no botão abaixo e abra seu ticket!</label>
 
