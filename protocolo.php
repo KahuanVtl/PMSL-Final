@@ -26,14 +26,13 @@ if (isset($_POST['testaLogin'])) {
 }
 
 if (isset($_POST['submitFormulario'])) {
-    // Obtém os dados do formulário
+    
     $nomeDemandante = $_POST['usuario'];
     $numero = $_POST['numero'];
     $descricao = $_POST['descricao'];
     $data = $_POST['dataEntrada'];
     $prazo = $_POST['prazo'];
 
-    // Insere os dados na tabela "protocolo"
     $inserirProtocolo = "INSERT INTO protocolo (NUMERO, DESCRICAO, DATA, PRAZO, NOME_DEMANDANTE) VALUES (:numero, :descricao, :data, :prazo, :nomeDemandante)";
 
     $stmt = $conn->prepare($inserirProtocolo);
@@ -44,7 +43,6 @@ if (isset($_POST['submitFormulario'])) {
     $stmt->bindParam(':nomeDemandante', $nomeDemandante);
     $stmt->execute();
 
-    // Verifica se a inserção foi bem sucedida
     if ($stmt->rowCount() > 0) {
         $protocoloCadastrado = true;
         $ultimoId = $conn->lastInsertId();
@@ -53,7 +51,6 @@ if (isset($_POST['submitFormulario'])) {
     $stmt = null;
 }
 
-// Excluir registro de protocolo
 if (isset($_GET['excluir']) && is_numeric($_GET['excluir'])) {
     $protocoloId = $_GET['excluir'];
 
@@ -62,7 +59,6 @@ if (isset($_GET['excluir']) && is_numeric($_GET['excluir'])) {
     $stmt->bindParam(':id', $protocoloId);
     $stmt->execute();
 
-    // Verifica se a exclusão foi bem sucedida
     if ($stmt->rowCount() > 0) {
         echo "Registro excluído com sucesso.";
     } else {
@@ -72,14 +68,12 @@ if (isset($_GET['excluir']) && is_numeric($_GET['excluir'])) {
     $stmt = null;
 }
 
-// Consulta os nomes existentes na tabela "usuarios"
 $consultaUsuarios = "SELECT nome FROM usuarios";
 $stmtUsuarios = $conn->prepare($consultaUsuarios);
 $stmtUsuarios->execute();
 $nomesUsuarios = $stmtUsuarios->fetchAll(PDO::FETCH_COLUMN);
 $stmtUsuarios = null;
 
-// Consulta os protocolos cadastrados
 $consultaProtocolos = "SELECT * FROM protocolo";
 $stmtProtocolos = $conn->prepare($consultaProtocolos);
 $stmtProtocolos->execute();
@@ -93,12 +87,11 @@ $conn = null;
 <html lang="pt-br">
 
 <head>
-    <!-- Seu código do cabeçalho aqui -->
+    <h1 style="font-weight: bold;">Prefeitura Municipal de São Leopoldo</h1>
 </head>
 
 <body>
-    <h1 style="font-weight: bold;">Prefeitura Municipal de São Leopoldo</h1>
-
+    
     <?php if ($mostrarFormulario && !$protocoloCadastrado) { ?>
         <form method="post">
             <h2>Bem Vindo ao Cadastro de Protocolos</h2>
@@ -128,6 +121,7 @@ $conn = null;
         </form>
 
         <h2>Protocolos Cadastrados</h2>
+
         <table>
             <tr>
                 <th>Número</th>
@@ -145,8 +139,8 @@ $conn = null;
                     <td><?php echo $protocolo['PRAZO']; ?></td>
                     <td><?php echo $protocolo['NOME_DEMANDANTE']; ?></td>
                     <td>
-                        <a href="?excluir=<?php echo $protocolo['ID']; ?>">Excluir</a>
-                        <a href="?alterar=<?php echo $protocolo['ID']; ?>">Alterar</a>
+                        
+                        
                     </td>
                 </tr>
             <?php } ?>
